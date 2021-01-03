@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using System.Linq;
-using API.Data;
 using API.Entities;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using API.Data;
 namespace API.Controllers
 {
     [ApiController]
@@ -16,12 +16,12 @@ namespace API.Controllers
             _context = context;
         }
         [HttpGet]
-        public ActionResult<IEnumerable<AppUser>> GetUser(){
-            return _context.Users.ToList();
+        public async Task<ActionResult<IEnumerable<AppUser>>> GetUser(){
+            return await  _context.Users.ToListAsync();
         }
         [HttpGet("{id}")]
-        public ActionResult<AppUser> GetUser(int id){
-            return _context.Users.Find(id);
+        public async Task<ActionResult<AppUser>> GetUser(int id){
+            return await _context.Users.FindAsync(id);
         }
     }
 }
